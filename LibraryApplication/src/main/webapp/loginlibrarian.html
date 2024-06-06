@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+	body{
+		background-image: url("books.jpg");
+		background-repeat: no-repeat;
+		background-size: cover;
+		margin:0px;
+	}
+	fieldset {
+	    margin: 269px 0;
+	    border: 5px solid grey;
+	}
+</style>
+</head>
+<body>
+<form action="AdminSaveLibrary" method="post" style="margin: 0 auto; color:#000000; font-size:16px; font-weight:800; line-height:23px; width: 28%; border-color: #000000; border-width: 10px;">         
+    <fieldset>
+        <center>
+            <legend>Login Form</legend>
+        </center>
+        <label for="username">UserName:</label><br>
+        <input type="email" name="EmailId" id="Email" placeholder="Enter Your Username" required><br>
+     	<label for="password">Password:</label><br>
+        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>
+        <center>
+            <button style="margin:10px">Submit</button>
+        </center>     
+    </fieldset> 
+</form>
+</body>
+</html>

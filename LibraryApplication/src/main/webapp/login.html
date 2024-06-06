@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+main{
+	background-image: url("books.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin:0px;
+}
+fieldset {
+    border: 5px solid grey;
+}
+
+body{
+		margin:0px;
+	}
+	li{
+		display: inline-block;
+		vertical-align:middle;
+	    list-style: none;
+	    padding: 0px 15px;
+	    font-size: 22px;
+    	font-weight: 800;	
+	}
+	h1{
+	text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px 95px;
+	}
+	
+	.nav-ul{
+		display:inline-block;
+		vertical-align: middle;
+		padding:0px;
+	}
+	
+	.dropdown {
+	  padding: 0px;
+	  display: none;
+	  position: absolute;
+	  min-width: 100px;
+	  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+	}
+
+	.dropdown li {
+	  padding: 12px 3px;
+	  text-decoration: none;
+	  display: block;
+	}
+	
+	.dropdown li:hover {
+	}
+	
+	li:hover .dropdown {
+	  display: block;
+	}
+		
+	.logo-container{
+		display: inline-block;
+		vertical-align: middle;
+	}
+		
+	.logo-img{
+		height: 135px;
+	}
+		
+</style>
+</head>
+<body> 
+<header class="header-container" >
+		<div class="logo-container">
+			<a href="index.html" class="logo-atag"><img src="logo.jpg" alt="Library Logo Image"class="logo-img" ></a>
+			</div>
+			<h1 style="text-align:center; display:inline-block;   padding: 0 91px;">Library Application</h1>
+			<nav class="nav" style="display:inline-block;">
+				<ul class="nav-ul">
+					<li class="nav-ul-li"><a href="products.html" style="text-decoration:none; color:black  ">Products</a></li>
+					<li class="nav-ul-li"><a href="company.html" style="text-decoration:none; color:black">Company</a></li>	
+					<li class="nav-ul-li"><a href="addbook.jsp" style="text-decoration:none;  color:black">Books</a></li>
+					
+					<ul  class="nav-ul">
+			  			<li>
+			   				Accounts
+					    	<ul class="dropdown">
+						      	<li><a href="user.html" style="text-decoration:none; color:#000000">User</a></li>
+						      	<li><a href="admin.html" style="text-decoration:none; color:#000000">Admin</a></li>
+						      	<li><a href="librarian.html" style="text-decoration:none; color:#000000">Librarian</a></li>
+					    	</ul>
+			 		 	</li>
+					</ul>
+				</ul>
+			</nav>
+	</header>
+	<main>
+	<form action="SaveLibrary" method="post" style="margin: 0 auto; padding:90px 0px; color:#000000; font-size:16px;  font-weight:800; line-height:23px; width: 28%; border-color: #000000; border-width: 10px;">         
+	    <fieldset>
+	        <center>
+	            <legend>Login Form</legend>
+	        </center>
+	        <label for="id">Id:</label><br>
+	        <input type="text" name="id" id="id" placeholder="Enter Your Id"><br>
+	        <label for="username">UserName:</label><br>
+	        <input type="email" name="EmailId" id="Email" placeholder="Enter Your Username" required><br>
+	     	<label for="password">Password:</label><br>
+	        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>
+			
+	        <center>
+	            <button style="margin:10px">Submit</button>
+	        </center>     
+	    </fieldset> 
+	    </form>
+    </main>
+</body>
+</html>
