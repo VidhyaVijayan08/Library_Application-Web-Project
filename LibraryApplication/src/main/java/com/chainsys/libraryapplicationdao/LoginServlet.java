@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
     public LoginServlet() {
         super();
         
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("Name");
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         PrintWriter out=response.getWriter();
-        String emailId=request.getParameter("emailId");
+        String emailId=request.getParameter("EmailId");
         String password=request.getParameter("password");
         try 
         {

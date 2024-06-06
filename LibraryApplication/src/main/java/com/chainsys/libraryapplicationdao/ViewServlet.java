@@ -19,7 +19,7 @@ public class ViewServlet extends HttpServlet {
        
     public ViewServlet() {
         super();
-    }
+    } 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());

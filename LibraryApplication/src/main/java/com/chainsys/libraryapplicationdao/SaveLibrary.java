@@ -38,7 +38,7 @@ public class SaveLibrary extends HttpServlet {
         user.setPhoneNumber(phoneNumber);
         String location = request.getParameter("location");
         user.setLocation(location);
-        try {
+        try { 
         	libraryImpl.saveLibrary(user);
 //        	  List<User> list1 = LibraryImpl.retrieveDetails();
 //              request.setAttribute("list1", list1);

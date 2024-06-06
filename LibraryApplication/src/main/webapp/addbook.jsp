@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Add Book</title>
 <style>
-body {
+body { 
 	background-image: url("register.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;

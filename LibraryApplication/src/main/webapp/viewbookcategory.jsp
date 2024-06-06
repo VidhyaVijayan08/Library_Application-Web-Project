@@ -52,7 +52,7 @@ try {
 				Category:
 				<%= category %></p>
 			<!-- You can add more details here -->
-		</div>
+		</div> 
 	</div>
 	<%
     }

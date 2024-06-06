@@ -13,7 +13,7 @@ import com.chainsys.libraryapplicationmodel.User;
 import com.chainsys.libraryapplicationutil.ConnectUtil;
 import com.mysql.cj.jdbc.Blob;
 public class LibraryImpl implements LibraryDAO{
-
+ 
 	public void saveLibrary(User user) throws ClassNotFoundException, SQLException {
 		 Connection con = ConnectUtil.getConnection();
 	        String add = "insert into users(user_name,mail_id, user_password, user_type, phone_number, location,status)values(?,?,?,?,?,?,?)";

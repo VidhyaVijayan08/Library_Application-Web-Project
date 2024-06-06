@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
     <title>View Products</title>
     <style>
         .card {

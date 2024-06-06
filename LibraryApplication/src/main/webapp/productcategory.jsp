@@ -9,7 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Products</title>
-<style>
+<style> 
 .card {
 	border: 1px solid #ccc;
 	border-radius: 5px;

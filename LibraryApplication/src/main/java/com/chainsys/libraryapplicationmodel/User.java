@@ -10,7 +10,7 @@ public class User {
 	String location;
 	public int getStatus;
 	
-	
+	 
 	public User(){
 		
 	}

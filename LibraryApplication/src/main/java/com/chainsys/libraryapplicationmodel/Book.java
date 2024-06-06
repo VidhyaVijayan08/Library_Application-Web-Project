@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.mysql.cj.jdbc.Blob;
 
 public class Book {
-	 
+	  
 	int bookId;
 	String bookTitle;
 	int authorId;

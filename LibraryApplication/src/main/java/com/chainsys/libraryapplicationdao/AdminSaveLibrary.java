@@ -42,7 +42,7 @@ public class AdminSaveLibrary extends HttpServlet {
             
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        }	}
+        }	} 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailId = request.getParameter("EmailId");

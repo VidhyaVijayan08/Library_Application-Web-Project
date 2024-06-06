@@ -4,7 +4,7 @@
     <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <style>
