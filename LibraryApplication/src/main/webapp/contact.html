@@ -5,69 +5,69 @@
   <title>Hamburger Menu</title>
   <link rel="stylesheet" href="styles.css">
   <style >
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
- 
-.menu-toggle {
-  display: none;
-}
-
-.menu-toggle, .nav-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.bar {
-  width: 25px;
-  height: 3px;
-  background-color: #333;
-  margin: 6px 0;
-  display: block;
-  transition: background-color 0.3s ease;
-}
-
-.navbar {
-  background-color: #f8f9fa;
-  padding: 15px;
-}
-
-.navbar label {
-  display: block;
-  cursor: pointer;
-}
-
-.nav-list li {
-  margin: 10px 0;
-}
-
-.nav-list li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-}
-
-input[type="checkbox"] {
-  display: none;
-}
-
-input[type="checkbox"]:checked + .navbar .nav-list {
-  display: block;
-}
-
-input[type="checkbox"]:checked + .navbar label .bar:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-
-input[type="checkbox"]:checked + .navbar label .bar:nth-child(2) {
-  opacity: 0;
-}
-
-input[type="checkbox"]:checked + .navbar label .bar:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-}
+	body {
+	  margin: 0;
+	  font-family: Arial, sans-serif;
+	}
+	 
+	.menu-toggle {
+	  display: none;
+	}
+	
+	.menu-toggle, .nav-list {
+	  list-style-type: none;
+	  margin: 0;
+	  padding: 0;
+	}
+	
+	.bar {
+	  width: 25px;
+	  height: 3px;
+	  background-color: #333;
+	  margin: 6px 0;
+	  display: block;
+	  transition: background-color 0.3s ease;
+	}
+	
+	.navbar {
+	  background-color: #f8f9fa;
+	  padding: 15px;
+	}
+	
+	.navbar label {
+	  display: block;
+	  cursor: pointer;
+	}
+	
+	.nav-list li {
+	  margin: 10px 0;
+	}
+	
+	.nav-list li a {
+	  text-decoration: none;
+	  color: #333;
+	  font-weight: bold;
+	}
+	
+	input[type="checkbox"] {
+	  display: none;
+	}
+	
+	input[type="checkbox"]:checked + .navbar .nav-list {
+	  display: block;
+	}
+	
+	input[type="checkbox"]:checked + .navbar label .bar:nth-child(1) {
+	  transform: translateY(8px) rotate(45deg);
+	}
+	
+	input[type="checkbox"]:checked + .navbar label .bar:nth-child(2) {
+	  opacity: 0;
+	}
+	
+	input[type="checkbox"]:checked + .navbar label .bar:nth-child(3) {
+	  transform: translateY(-8px) rotate(-45deg);
+	}
 
  </style>
 </head>

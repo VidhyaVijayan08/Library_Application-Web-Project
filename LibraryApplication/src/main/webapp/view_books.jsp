@@ -55,7 +55,6 @@ form {
                                 <div class="card-details">
                                     <h3><%= book.getBookTitle() %></h3>
                                     <p>Category: <%= book.getBookCategory()%></p>
-                                    <!-- You can add more details here -->
                                 </div>
                             </div>
                         </button>

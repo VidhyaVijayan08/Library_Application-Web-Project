@@ -35,106 +35,30 @@
 </head>
 <body>
 <%-- <% HttpSession data = request.getSession();%>
- --%>	<h2>Products</h2>
- <form action="ViewServlet" method="post">
-    <button type="submit" name="category" value="Folk Tale" style="border: none; background: none; padding: 0;">
+ --%>	<h2>Category</h2>
+  <% 
+        try {
+            List<String> categoryList = LibraryImpl.getAllCategory();
+            for (String category : categoryList) {
+//            	System.out.print("category in product category page"+category);
+//            	category=category.replace(" ","");
+  %>
+   <form action="ViewServlet" method="post">
+    <button type="submit" name="category" value=<%=category.replace(" ","@@")%> style="border: none; background: none; padding: 0;">
         <div class="card">
             <div class="card-details">
-                <h3>Folk Tale</h3>
+                <h3><%=category%></h3>
             </div>
         </div>
     </button>
 </form>
 
-<form action="ViewServlet" method="post">
-    <button type="submit" name="category" value="Fantasy" style="border: none; background: none; padding: 0;">
-        <div class="card">
-            <div class="card-details">
-                <h3>Fantasy</h3>
-            </div>
-        </div>
-    </button>
-</form>
-
-<!-- <!-- Similarly, add forms for Thriller and Horror categories -->
- 
- <!-- <form action="ViewServlet" method="post">
-    <button type="submit" name="category" value="Folk Tale" style="border: none; background: none; padding: 0;">
-        <div class="card">
-            <div class="card-details">
-                <h3>Folk Tale</h3>
-            </div>
-        </div>
-    </button>
-</form>
-
-<form action="ViewServlet" method="post">
-    <button type="submit" name="category" value="Thriller" style="border: none; background: none; padding: 0;">
-        <div class="card">
-            <div class="card-details">
-                <h3>Thriller</h3>
-            </div>
-        </div>
-    </button>
-</form> --> 
-
-<form action="ViewServlet" method="post">
-    <button type="submit" name="category" value="Thriller" style="border: none; background: none; padding: 0;">
-        <div class="card">
-            <div class="card-details">
-                <h3>Folk Tale</h3>
-            </div>
-        </div>
-    </button>
-</form>
-
-<form action="ViewServlet" method="post">
-    <button type="submit" name="category" value="Horror" style="border: none; background: none; padding: 0;">
-        <div class="card">
-            <div class="card-details">
-                <h3>Fantasy</h3>
-            </div>
-        </div>
-    </button>
-</form> 
- 
-	 <%-- <%--   <form action="ViewServlet" method="post">
-	     <button type="submit" value="Folk Tale" style="border: none; background: none; padding: 0;">
-		   <div class="card">
-			<div class="card-details">
-				<h3 value="folk">Folk Tale</h3>
-				<%data.setAttribute("folk", "Folk Tale"); %> 
-				<!-- You can add more details here -->
-			</div>
-			</div>
-		</button>
-		 </form>
-	  	<form action="ViewServlet" method="post">
-	    <button type="submit" style="border: none; background: none; padding: 0;">
-		<div class="card">
-			<div class="card-details">
-				<h3>Fantasy</h3>
-				 <%data.setAttribute("folk", "fantasy"); %> 
-				<!-- You can add more details here -->
-			</div>
-		</div>
-		</form>
-		<form action="ViewServlet" method="post">
-			<div class="card">
-				<div class="card-details">
-					<h3>Thriller</h3>
-					<!-- You can add more details here -->
-				</div>
-			</div>
-		</form>
-		<form action="ViewServlet" method="post">
-			<div class="card">
-				<div class="card-details">
-					<h3>Horror</h3>
-					<!-- You can add more details here -->
-				</div>
-			</div>
-		</form> --%> 
+  <%
+  }
+} catch (SQLException | ClassNotFoundException ex) {
+ex.printStackTrace();
+}
+%>
 	  
 </body>
 </html>

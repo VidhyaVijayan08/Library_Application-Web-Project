@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.chainsys.libraryapplicationmodel.Book;
 import com.chainsys.libraryapplicationmodel.User;
 import com.chainsys.libraryapplicationutil.ConnectUtil;
-import com.mysql.cj.jdbc.Blob;
 public class LibraryImpl implements LibraryDAO{
  
 	public void saveLibrary(User user) throws ClassNotFoundException, SQLException {
 		 Connection con = ConnectUtil.getConnection();
-	        String add = "insert into users(user_name,mail_id, user_password, user_type, phone_number, location,status)values(?,?,?,?,?,?,?)";
+	        String add = "insert into users(user_name,mail_id, user_password, user_type, phone_number, location,status,approval)values(?,?,?,?,?,?,?,?)";
 	        PreparedStatement ps = con.prepareStatement(add);
 	            user.setName(user.getName());
 	            System.out.println("Getting Student name" + user.getName());
@@ -27,6 +28,7 @@ public class LibraryImpl implements LibraryDAO{
 	            ps.setLong(5, user.getPhoneNumber());
 	            ps.setString(6, user.getLocation());
 	            ps.setInt(7, 1);
+	            ps.setString(8, "Not Approval");;
 	            System.out.println("Setting Student name : " + user.getName());
 	            int rows = ps.executeUpdate();
 	            System.out.println("In Add movie Servlet.." + rows);
@@ -74,26 +76,32 @@ public class LibraryImpl implements LibraryDAO{
 //	            System.out.println("In Add movie Servlet.." + rows);
 //	}
 	
-	public static String checkPassword(String emailId) throws ClassNotFoundException, SQLException {
-		String password=null;
+	public static String checkPassword(String emailId, String password) throws ClassNotFoundException, SQLException {
+		String userType=null;
 		Connection connection = ConnectUtil.getConnection();
-		String select = "select user_password from users where mail_id=?";
+		String select = "select user_type from users where lower(mail_id)=lower(?) and lower(user_password)=lower(?) and status=1";
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
 		prepareStatement.setString(1,emailId);
+		prepareStatement.setString(2,password);
+		System.err.print("The emailId "+ emailId);
+		System.err.print("The password "+password);
+		System.err.print("The prepared statement "+prepareStatement);
     	ResultSet resultSet = prepareStatement.executeQuery(); 
     	while (resultSet.next()) {
-            password= resultSet.getString(1);
+            userType= resultSet.getString(1);
     	}
         System.out.println(resultSet+" retrieved");		
-        return password;
+        return userType;
 	}
 	
-	public void deleteServlet(User user) throws ClassNotFoundException, SQLException {
+	public void deleteServlet(Integer id) throws ClassNotFoundException, SQLException {
 		Connection con = ConnectUtil.getConnection();
-		String save="delete from  users where user_name=?";
+		String save="update users set status=0 where user_id=? and status=1";
         PreparedStatement prepareStatement = con.prepareStatement(save);
-        prepareStatement.setString(1, user.getName());
+        prepareStatement.setInt(1, id);
         int rows = prepareStatement.executeUpdate();
+        System.out.println("Deleted_id "+ id);
+        System.out.println("prepareStatement "+prepareStatement);
     	System.out.println(rows + " deleted");
 	}
 	
@@ -101,7 +109,7 @@ public class LibraryImpl implements LibraryDAO{
     {
         ArrayList<User> list=new ArrayList<>();
         Connection connection=ConnectUtil.getConnection();
-        String select="select user_name,mail_id, user_password, user_type, phone_number, location from users";
+        String select="select user_name,mail_id, user_password, user_type, phone_number, location from users where status =1";
         PreparedStatement prepareStatement=connection.prepareStatement(select);
         ResultSet resultSet=prepareStatement.executeQuery();
         while(resultSet.next())
@@ -130,14 +138,12 @@ public class LibraryImpl implements LibraryDAO{
         ArrayList<User> list=new ArrayList<>();
 	  	Connection connection = ConnectUtil.getConnection();
         System.out.println(connection);
-        String save="SELECT  user_name,mail_id, user_password , user_type, phone_number, location FROM users where user_name=?";
+        String save="SELECT  user_name,mail_id, user_password , user_type, phone_number, location FROM users where user_name=? and status =1";
         PreparedStatement prepareStatement = connection.prepareStatement(save);
         prepareStatement.setString(1, user.getName());
         Statement stmt = connection.createStatement();
     	ResultSet rows = prepareStatement.executeQuery(); 
     	while (rows.next()) {
-    		
-    		
     		 String name=rows.getString(1);
              String emailId=rows.getString(2);
              String password=rows.getString(3);
@@ -164,7 +170,7 @@ public class LibraryImpl implements LibraryDAO{
     public void removeUser(User user) throws ClassNotFoundException, SQLException 
     {
         Connection connection=ConnectUtil.getConnection();
-        String update="update users set status=? where user_id=?";
+        String update="update users set status=? where user_id=? and status=1";
         PreparedStatement prepareStatement=connection.prepareStatement(update);
         prepareStatement.setInt(1,0);
         prepareStatement.setInt(2,user.getId());
@@ -226,16 +232,18 @@ public class LibraryImpl implements LibraryDAO{
             } else {
                 sql = "SELECT book_id, book_title, author_id, book_category, " +
                         "publication_year, isbn, book_summary, book_rating, " +
-                        "book_reviews, book_cover FROM book_details WHERE book_category = ?";
+                        "book_reviews, book_cover FROM book_details WHERE lower(book_category) = lower(?)";
             }
-
+            
             // Create PreparedStatement
             preparedStatement = connection.prepareStatement(sql);
             
             // Set category parameter if it's not null or empty
             if (category != null && !category.isEmpty()) {
-                preparedStatement.setString(1, category);
+                preparedStatement.setString(1, category.replace("@@", " "));
             }
+            
+            System.out.print("The statement"+preparedStatement);
 
             // Execute query
             resultSet = preparedStatement.executeQuery();
@@ -271,10 +279,173 @@ public class LibraryImpl implements LibraryDAO{
                 connection.close();
             }
         }
-
         return bookList;
     }
+        
+        public static List<User> getfindusers(String email) throws ClassNotFoundException, SQLException {
+            List<User> userList = new ArrayList<>();
+            Connection connection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
 
-	
+            try {
+                // Get connection
+                connection = ConnectUtil.getConnection();
+
+                // SQL query to retrieve all books
+                String sql;
+                if (email == null || email.isEmpty()) {
+                    sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users";
+                } else {
+                    sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users WHERE mail_id =?";
+                }
+                
+                // Create PreparedStatement
+                preparedStatement = connection.prepareStatement(sql);
+                
+                System.out.print("The statement"+preparedStatement);
+                
+                if (email != null && !email.isEmpty()) {
+                    preparedStatement.setString(1, email);
+                }
+
+                // Execute query
+                resultSet = preparedStatement.executeQuery();
+
+                // Process ResultSet
+                while (resultSet.next()) {
+                	System.out.print(resultSet);
+                    // Create User object and set its properties
+                    User user = new User();
+                    user.setId(resultSet.getInt("user_id"));
+                    user.setEmailId(resultSet.getString("mail_id"));
+                    user.setName(resultSet.getString("user_name"));
+                    user.setLocation(resultSet.getString("location"));
+                    user.setGetStatus(resultSet.getInt("status"));
+                    user.setPhoneNumber(resultSet.getLong("phone_number"));
+                    user.setType(resultSet.getString("user_type"));
+                  
+                    // Add User object to the list
+                    userList.add(user);
+                }
+            } finally {
+                // Close ResultSet, PreparedStatement, and Connection
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+
+        return userList;
+    }
+    
+    public static List<String> getAllCategory() throws ClassNotFoundException, SQLException {
+        List<String> categoryList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Get connection
+            connection = ConnectUtil.getConnection();
+
+            // SQL query to retrieve all books
+            String sql;
+            sql = "SELECT distinct book_category FROM book_details";
+            
+            // Create PreparedStatement
+            preparedStatement = connection.prepareStatement(sql);
+            
+            // Execute query
+            resultSet = preparedStatement.executeQuery();
+
+            // Process ResultSet
+            while (resultSet.next()) {
+
+                // Add Category object to the list
+                 categoryList.add(resultSet.getString("book_category"));
+            }
+        } finally {
+            // Close ResultSet, PreparedStatement, and Connection
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return categoryList;
+    }
+
+    public static List<Map<String,Object>> getAllLendingInformation() throws ClassNotFoundException, SQLException {
+    	List<Map<String,Object>> userList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Get connection
+            connection = ConnectUtil.getConnection();
+
+            // SQL query to retrieve all books
+            String sql = "SELECT ld.lending_id, ld.book_id, bd.book_title, bd.available_books, ld.lender_id, u.mail_id,\r\n"
+            		+ "ld.due_date, ld.status, ld.reservation_date\r\n"
+            		+ "FROM library.lending_details ld\r\n"
+            		+ "inner join book_details bd on bd.book_id=ld.book_id\r\n"
+            		+ "left join users u on u.user_id=ld.lender_id";
+            
+            // Create PreparedStatement
+            preparedStatement = connection.prepareStatement(sql);
+            
+            System.out.print("The statement"+preparedStatement);
+            
+            // Execute query
+            resultSet = preparedStatement.executeQuery();
+
+            // Process ResultSet
+            while (resultSet.next()) {
+            	System.out.print(resultSet);
+                // Create User object and set its properties
+                Map<String, Object> requestedBook = new HashMap<String,Object>();
+
+                requestedBook.put("lending_id", resultSet.getInt("lending_id"));
+                requestedBook.put("book_id", resultSet.getInt("book_id"));
+                requestedBook.put("book_title", resultSet.getString("book_title"));
+                requestedBook.put("available_books", resultSet.getInt("available_books"));
+                requestedBook.put("lender_id", resultSet.getInt("lender_id"));
+                requestedBook.put("mail_id", resultSet.getString("mail_id"));
+                requestedBook.put("due_date", resultSet.getString("due_date"));
+                requestedBook.put("status", resultSet.getString("status"));
+                requestedBook.put("reservation_date", resultSet.getString("reservation_date"));
+              
+                // Add User object to the list
+                System.out.print("requestedBook : "+requestedBook);
+                userList.add(requestedBook);
+                System.out.print("userList : "+userList);
+            }
+        } finally {
+            // Close ResultSet, PreparedStatement, and Connection
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+    return userList;
+}
 	
 }

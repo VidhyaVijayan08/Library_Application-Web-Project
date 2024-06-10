@@ -37,7 +37,9 @@
 	<h2>Products</h2>
 	<% 
 try {
-    List<Book> bookList = LibraryImpl.getAllBooks("folk tale");
+	System.out.println("View Book Category"+ request.getParameter("category"));
+	String category1=request.getParameter("category");
+    List<Book> bookList = LibraryImpl.getAllBooks(category1);
     
     for (Book book : bookList) {
         String category = book.getBookCategory();
@@ -52,6 +54,14 @@ try {
 				Category:
 				<%= category %></p>
 			<!-- You can add more details here -->
+			<form action="RequestServlet" method="get">
+			<% 
+			// book_id
+			// user_id
+			// insert into lending_details(lending_id, book_id, lender_id, borrower_id) values (?,?,?,?)
+			%>
+	 			<input type="submit" class="search-button" value="Request" name="action">
+			</form>
 		</div> 
 	</div>
 	<%

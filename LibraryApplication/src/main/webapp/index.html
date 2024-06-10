@@ -11,8 +11,7 @@
 		background-image:url("bookslibrary.webp");
 		background-size: cover;
 		background-repeat: no-repeat;
-		height:800px;
-	}
+		}
 	li{
 		display: inline-block;
 		vertical-align: middle;
@@ -67,6 +66,20 @@
 	header{
 		height: 135px;
 	}
+	fieldset {
+    margin: 65px 0 10px 0;
+    background: white;
+    border: 1px solid white;
+    border-radius: 19px;
+}
+button{
+	margin: 10px;
+    background-color: darkgoldenrod;
+    border: 1px solid darkgoldenrod;
+    border-radius: 22px;
+    color: white;
+    padding: 9px 32px;
+}
 	
 </style>
 </head>
@@ -76,7 +89,7 @@
 			<a href="index.html" class="logo-atag"><img src="logo.jpg" alt="Library Logo Image"class="logo-img" ></a>
 			</div>
 			<h1 style="text-align:center; display:inline-block;   padding: 0 91px;">Library Application</h1>
-			<nav class="nav" style="display:inline-block;">
+			<!-- <nav class="nav" style="display:inline-block;">
 				<ul class="nav-ul">
 					<li class="nav-ul-li"><a href="products.html" style="text-decoration:none; color:black">Products</a></li>
 					<li class="nav-ul-li"><a href="company.html" style="text-decoration:none; color:black">Company</a></li>	
@@ -91,9 +104,24 @@
 			  </li>
 			</ul>
 				</ul>
-			</nav>
+			</nav> -->
 	</header>
 	<main>
+	<form action="SaveLibrary" method="get" style="margin: 0 auto; padding:90px 0px; color:#000000; font-size:16px;  font-weight:800; line-height:23px; width: 28%; border-color: #000000; border-width: 10px;">         
+	    <fieldset>
+	        <center>
+	            <legend>Login</legend>
+	        </center>
+	        <label for="username">Email Id:</label><br>
+	        <input type="email" name="EmailId" id="Email" placeholder="Enter Your Username" required><br>
+	     	<label for="password">Password:</label><br>
+	        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>
+			
+	        <center>
+	            <button style="margin:10px">Submit</button>
+	        </center>     
+	    </fieldset> 
+	    </form>
 	</main>
 	<footer>
 	</footer>

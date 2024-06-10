@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 <style>
 main{ 
-	background-image: url("librarybackground.jpg");
+	background-image: url("images/forms.avif");
 	background-repeat: no-repeat;
 	background-size: cover;
 	margin:0px;
@@ -97,15 +97,15 @@ h1{
 			</nav>
 	</header>
 	<main>
-		<form action="SaveLibrary" method="get" style="margin: 0 auto; color:#ffffff; font-size:16px; padding: 51px 0px; font-weight:800; line-height:23px; width: 28%; border-color: #ffffff; border-width: 10px;">         
+		<form action="SaveLibrary" method="post" style="margin: 0 auto; color:#ffffff; font-size:16px; padding: 51px 0px; font-weight:800; line-height:23px; width: 28%; border-color: #ffffff; border-width: 10px;">         
 		    <fieldset>
 		        <center>
 		            <legend>Registration Form</legend>
 		        </center>
 		        <label for="Name">Name:</label><br>
 		        <input type="text" name="Name" id="Name" placeholder="Enter Your Name" required><br>
-		        <label for="username">UserName:</label><br>
-		        <input type="email" name="EmailId" id="Email" placeholder="Enter Your Username" required><br>
+		        <label for="username">Email Id:</label><br>
+		        <input type="email" name="EmailId" id="Email" placeholder="Enter Your EmailId" required><br>
 		     	<label for="password">Password:</label><br>
 		        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>
 		        <label for="type">Type:</label><br>
@@ -114,6 +114,8 @@ h1{
 		        <input type="tel" name="phonenumber" id="phonenumber" placeholder="Enter Your Phone Number" required><br>
 		         <label for="location">Location:</label><br>
 		        <input type="text" name="location" id="location" placeholder="Enter Your Location" required><br>	        
+		        	        <input type="hidden"  name="action" value="register">
+		        
 		        <center>
 		            <button style="margin:10px">Submit</button>
 		        </center> 
