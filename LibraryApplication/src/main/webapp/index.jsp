@@ -13,6 +13,14 @@ body{
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+table {
+    	background: antiquewhite;
+    	border-color:none!Important;
+        border-collapse: collapse;
+        width: 73%;
+        margin-top: 200px;
+        margin-left: 179px;
+    }
     table {
         border-collapse: collapse;
         width: 73%;
@@ -91,7 +99,7 @@ if (user != null && !user.isEmpty()) {
  	    <input type="submit" class="search-button" value="search" name="action">
 	<button class="search-button"><a href="register.html" class="add-user-link" style="text-decoration:none; color:black;">Add User</a></button>
 </form>
-<button><a href="LogoutSessions" style="text-decoration:none; color:black">Logout</a></button>
+<button><a href="LogoutServlet" style="text-decoration:none; color:black">Logout</a></button>
 </div>
 </body>
 </html>

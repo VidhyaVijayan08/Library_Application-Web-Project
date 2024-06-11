@@ -6,7 +6,10 @@
         <welcome-file>index.jsp</welcome-file>
             <welcome-file>shopping.jsp</welcome-file>
                 <welcome-file>adminindex.html</welcome-file>
+                 <welcome-file>adminrequestview.jsp</welcome-file>
+                
             <welcome-file>librarian.html</welcome-file>
+                <welcome-file>requestform.html</welcome-file>
     
     <welcome-file>login.html</welcome-file>
         <welcome-file>addbook.jsp</welcome-file>

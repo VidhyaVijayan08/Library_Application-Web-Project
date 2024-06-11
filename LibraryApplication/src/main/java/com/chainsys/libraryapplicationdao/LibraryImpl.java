@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chainsys.libraryapplicationmodel.Book;
+import com.chainsys.libraryapplicationmodel.Lending;
 import com.chainsys.libraryapplicationmodel.User;
 import com.chainsys.libraryapplicationutil.ConnectUtil;
 public class LibraryImpl implements LibraryDAO{
@@ -30,6 +31,40 @@ public class LibraryImpl implements LibraryDAO{
 	            ps.setInt(7, 1);
 	            ps.setString(8, "Not Approval");;
 	            System.out.println("Setting Student name : " + user.getName());
+	            int rows = ps.executeUpdate();
+	            System.out.println("In Add movie Servlet.." + rows);
+	}
+	
+	public void saveRequest(Lending lending) throws ClassNotFoundException, SQLException{
+		Connection con = ConnectUtil.getConnection();
+		String add ="insert into lending_details(book_id, lender_id, borrower_id,borrower_date,due_date,status,fine) values(?,?,?,?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(add);
+		lending.setBookId(lending.getBookId());
+		System.out.println("Getting Book Id :" + lending.getBookId());
+	    ps.setInt(1, lending.getBookId());
+        ps.setInt(2, lending.getLenderId());
+        ps.setInt(3, lending.getBorrowerId());
+        ps.setString(4, lending.getBorrowerDate());
+        ps.setString(5, lending.getDueDate());
+        ps.setString(6, "Pending");
+        ps.setDouble(7, 0.0);
+        System.out.println("Setting Lender ID : " + lending.getLenderId());
+        int rows = ps.executeUpdate();
+        System.out.println("In Add movie Servlet.." + rows);
+	}
+	
+	public void saveRequestForm(Lending lending) throws ClassNotFoundException, SQLException {
+		 Connection con = ConnectUtil.getConnection();
+	        String add = "insert into lending_details(book_id,user_id, borrow_date,status,fine)values(?,?,?,?,?)";
+	        PreparedStatement ps = con.prepareStatement(add);
+	         
+	            System.out.println("Getting Student name" + lending.getBookId());
+	            ps.setInt(1, lending.getBookId());
+	            ps.setInt(2, lending.getLenderId());
+	            ps.setString(3, lending.getBorrowerDate());
+	            ps.setString(4, "Pending");
+	            ps.setInt(5, 0);
+	            System.out.println("Setting Lender ID : " + lending.getLenderId());
 	            int rows = ps.executeUpdate();
 	            System.out.println("In Add movie Servlet.." + rows);
 	}
@@ -134,6 +169,38 @@ public class LibraryImpl implements LibraryDAO{
         return list;
     }
 	
+	public static List<Lending> retrieveDetail() throws ClassNotFoundException, SQLException 
+    {
+        ArrayList<Lending> list=new ArrayList<>();
+        Connection connection=ConnectUtil.getConnection();
+        String select="select lending_id, book_id, user_id, due_date, borrow_date, status, fine from lending_details ";
+        PreparedStatement prepareStatement=connection.prepareStatement(select);
+        ResultSet resultSet=prepareStatement.executeQuery();
+        while(resultSet.next())
+        {
+        	int lendingId = resultSet.getInt(1);
+            int bookId=resultSet.getInt(2);
+            int lenderId=resultSet.getInt(3);
+            String dueDate=resultSet.getString(4);
+            String borrowDate = resultSet.getString(5);
+            String status = resultSet.getString(6);
+            int fine = resultSet.getInt(7);
+
+            Lending lending=new Lending();
+            lending.setLendingId(lendingId);
+
+            lending.setLenderId(lenderId);
+            lending.setBookId(bookId);
+            lending.setDueDate(dueDate);
+            lending.setBorrowerDate(borrowDate);
+            lending.setStatus(status);
+            lending.setFine(fine);
+            list.add(lending);
+        }
+        connection.close();
+        return list;
+    }
+	
 	public static List<User> searchServlet(User user) throws ClassNotFoundException, SQLException {
         ArrayList<User> list=new ArrayList<>();
 	  	Connection connection = ConnectUtil.getConnection();
@@ -177,7 +244,17 @@ public class LibraryImpl implements LibraryDAO{
         prepareStatement.executeUpdate();
         connection.close();
     }
-	
+    @Override
+    public void approveBorrower(Lending lending) throws ClassNotFoundException, SQLException 
+    { 
+        Connection connection=ConnectUtil.getConnection();
+        String update="update lending_details set status=? where user_id=? ";
+        PreparedStatement prepareStatement=connection.prepareStatement(update);
+        prepareStatement.setString(1,lending.getStatus());
+        prepareStatement.setInt(2,lending.getLenderId());
+        prepareStatement.executeUpdate();
+        connection.close();
+    }
     
     public static List<User> retrieveDetail(User user) throws ClassNotFoundException, SQLException 
     {
@@ -228,11 +305,11 @@ public class LibraryImpl implements LibraryDAO{
             if (category == null || category.isEmpty()) {
                 sql = "SELECT book_id, book_title, author_id, book_category, " +
                         "publication_year, isbn, book_summary, book_rating, " +
-                        "book_reviews, book_cover FROM book_details";
+                        "book_reviews, book_cover,available_books FROM book_details";
             } else {
                 sql = "SELECT book_id, book_title, author_id, book_category, " +
                         "publication_year, isbn, book_summary, book_rating, " +
-                        "book_reviews, book_cover FROM book_details WHERE lower(book_category) = lower(?)";
+                        "book_reviews, book_cover, available_books FROM book_details WHERE lower(book_category) = lower(?)";
             }
             
             // Create PreparedStatement
@@ -261,6 +338,7 @@ public class LibraryImpl implements LibraryDAO{
                 book.setBookSummary(resultSet.getString("book_summary"));
                 book.setBookRating(resultSet.getInt("book_rating"));
                 book.setBookReviews(resultSet.getString("book_reviews"));
+                book.setAvailableBook(resultSet.getInt("available_books"));
                 // Assuming book_cover is stored as byte array in the database
                 book.setBookCover(resultSet.getBytes("book_cover"));
 

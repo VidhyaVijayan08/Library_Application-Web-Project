@@ -54,14 +54,14 @@ try {
 				Category:
 				<%= category %></p>
 			<!-- You can add more details here -->
-			<form action="RequestServlet" method="get">
 			<% 
 			// book_id
 			// user_id
 			// insert into lending_details(lending_id, book_id, lender_id, borrower_id) values (?,?,?,?)
 			%>
-	 			<input type="submit" class="search-button" value="Request" name="action">
-			</form>
+				<a href="viewcategories.jsp">
+	 			<input type="submit" class="search-button" value="View More" name="action">
+	 			</a>
 		</div> 
 	</div>
 	<%
