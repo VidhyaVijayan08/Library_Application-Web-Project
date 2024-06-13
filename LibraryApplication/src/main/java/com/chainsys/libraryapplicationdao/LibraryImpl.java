@@ -5,7 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +19,12 @@ import com.chainsys.libraryapplicationmodel.Lending;
 import com.chainsys.libraryapplicationmodel.User;
 import com.chainsys.libraryapplicationutil.ConnectUtil;
 public class LibraryImpl implements LibraryDAO{
+	
+	
  
 	public void saveLibrary(User user) throws ClassNotFoundException, SQLException {
 		 Connection con = ConnectUtil.getConnection();
-	        String add = "insert into users(user_name,mail_id, user_password, user_type, phone_number, location,status,approval)values(?,?,?,?,?,?,?,?)";
+	        String add = "insert into users(user_name,mail_id, user_password, user_type, phone_number, location,status)values(?,?,?,?,?,?,?)";
 	        PreparedStatement ps = con.prepareStatement(add);
 	            user.setName(user.getName());
 	            System.out.println("Getting Student name" + user.getName());
@@ -29,29 +35,92 @@ public class LibraryImpl implements LibraryDAO{
 	            ps.setLong(5, user.getPhoneNumber());
 	            ps.setString(6, user.getLocation());
 	            ps.setInt(7, 1);
-	            ps.setString(8, "Not Approval");;
+//	            ps.setString(8, "Not Approval");;
 	            System.out.println("Setting Student name : " + user.getName());
 	            int rows = ps.executeUpdate();
 	            System.out.println("In Add movie Servlet.." + rows);
 	}
-	
-	public void saveRequest(Lending lending) throws ClassNotFoundException, SQLException{
-		Connection con = ConnectUtil.getConnection();
-		String add ="insert into lending_details(book_id, lender_id, borrower_id,borrower_date,due_date,status,fine) values(?,?,?,?,?,?,?)";
-		PreparedStatement ps = con.prepareStatement(add);
-		lending.setBookId(lending.getBookId());
-		System.out.println("Getting Book Id :" + lending.getBookId());
+
+
+//	public void saveRequest(Lending lending) throws ClassNotFoundException, SQLException, ParseException {
+//		  Connection con = ConnectUtil.getConnection();
+//	        String add = "INSERT INTO lending_details (book_id, user_id, borrow_date, due_date, status, fine) VALUES (?, ?, ?, ?, ?, ?)";
+//	        PreparedStatement ps = con.prepareStatement(add);
+//
+//	        ps.setInt(1, lending.getBookId());
+//	        ps.setInt(2, lending.getLenderId()); // Assuming this is the lender_id
+//	        
+//	        // Borrower date handling
+//	        String borrowerDate = lending.getBorrowerDate();
+//	        if (borrowerDate == null) {
+//	            borrowerDate = getCurrentDate(); // Get current date as borrower date
+//	        }
+//	        ps.setString(3, borrowerDate);
+//
+//	        // Calculate due date
+//	        Date dueDate = calculateDueDate(borrowerDate);
+//	        ps.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(dueDate)); // Set due date
+//
+//	        ps.setString(5, "Pending");
+//	        ps.setInt(6, 0);
+//
+//	        int rows = ps.executeUpdate();
+//	        System.out.println("Inserted " + rows + " row(s) into lending_details table.");
+//
+//	        ps.close();
+//	        con.close();
+//	    }
+
+//	    // Calculate due date method
+//	    private Date calculateDueDate(String borrowerDate) throws ParseException {
+//	        // Parse borrower date
+//	        Date parsedBorrowerDate = new SimpleDateFormat("yyyy-MM-dd").parse(borrowerDate);
+//	        
+//	        // Add 20 days to borrower date
+//	        Calendar cal = Calendar.getInstance();
+//	        cal.setTime(parsedBorrowerDate);
+//	        cal.add(Calendar.DATE, 20); // Add 20 days
+//
+//	        return cal.getTime();
+//	    }
+//	    
+//	    // Get current date as a string in "yyyy-MM-dd" format
+//	    private String getCurrentDate() {
+//	        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//	    }
+
+	public void saveRequest(Lending lending) throws ClassNotFoundException, SQLException, ParseException {
+	    Connection con = ConnectUtil.getConnection();
+	    String add = "INSERT INTO lending_details (book_id, user_id, borrow_date, due_date, status, fine) VALUES (?, ?, ?, DATE_ADD(?, INTERVAL 30 DAY), ?, ?)";
+	    PreparedStatement ps = con.prepareStatement(add);
+
 	    ps.setInt(1, lending.getBookId());
-        ps.setInt(2, lending.getLenderId());
-        ps.setInt(3, lending.getBorrowerId());
-        ps.setString(4, lending.getBorrowerDate());
-        ps.setString(5, lending.getDueDate());
-        ps.setString(6, "Pending");
-        ps.setDouble(7, 0.0);
-        System.out.println("Setting Lender ID : " + lending.getLenderId());
-        int rows = ps.executeUpdate();
-        System.out.println("In Add movie Servlet.." + rows);
+	    ps.setInt(2, lending.getLenderId()); // Assuming this is the lender_id
+	    
+	    // Borrower date handling
+	    String borrowerDate = lending.getBorrowerDate();
+	    if (borrowerDate == null || borrowerDate.isEmpty()) {
+	        borrowerDate = getCurrentDate(); // Get current date as borrower date
+	    }
+	    ps.setString(3, borrowerDate);
+
+	    // Set borrower date again as due date alias placeholder
+	    ps.setString(4, borrowerDate);
+
+	    ps.setString(5, "Pending");
+	    ps.setInt(6, 0);
+
+	    int rows = ps.executeUpdate();
+	    System.out.println("Inserted " + rows + " row(s) into lending_details table.");
+
+	    ps.close();
+	    con.close();
 	}
+
+	 private String getCurrentDate() {
+	        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	    }
+
 	
 	public void saveRequestForm(Lending lending) throws ClassNotFoundException, SQLException {
 		 Connection con = ConnectUtil.getConnection();

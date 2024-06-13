@@ -10,7 +10,24 @@
 <meta charset="ISO-8859-1">
 <title>Products</title>
 <style> 
+
+/* h3{
+	margin: 0px;
+	font-size: 22px;
+} */
+
+h2{
+	color:white;
+	font-size: 40px;
+}
+
+body{
+	text-align: center;
+	background-color: darkblue;
+}
+
 .card {
+	background-color: white;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px;
@@ -60,5 +77,10 @@ ex.printStackTrace();
 }
 %>
 	  
+	 <div class="card">
+            <div class="card-details">
+               <a href="addbook.jsp" style="text-decoration: none; color: black;">Add Book</a>
+            </div>
+        </div>
 </body>
 </html>

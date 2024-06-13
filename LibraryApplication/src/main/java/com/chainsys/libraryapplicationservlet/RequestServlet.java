@@ -20,80 +20,73 @@ public class RequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Lending lending = new Lending();
 	LibraryImpl libraryImpl = new LibraryImpl();
-       
 
-    public RequestServlet() {
-        super();
-    }
-
-    @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession(false);
-    	if(session!=null) {
-    	String LenderId = request.getParameter("LenderId");
-		int LenderId1 = Integer.parseInt(LenderId);
-		System.out.println(LenderId + LenderId1);
-		lending.setLenderId(LenderId1);
-		String BookId = request.getParameter("BookId");
-		int BookId1 = Integer.parseInt(LenderId);
-		lending.setBookId(BookId1);
-		System.out.println(BookId + BookId1);
-		String Date = request.getParameter("Date");
-		System.out.println(Date);
-		lending.setBorrowerDate(Date);
-		
-		  try { 
-			  System.out.println("hello");
-//	          request.getRequestDispatcher("requestform.html").forward(request, response);
-
-		    	libraryImpl.saveRequestForm(lending);
-
-//		          request.getRequestDispatcher("home.html").forward(request, response);
-
-		    } catch (ClassNotFoundException | SQLException e) {
-		        e.printStackTrace();
-		    }
-    	}else {
-			response.sendRedirect("requestform.html");
-		}
-    	response.sendRedirect("home.html");    }
+	public RequestServlet() {
+		super();
+	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    {
-	        Lending lending=new Lending();
-	        String LenderId = request.getParameter("id");
-	        System.out.println(LenderId);
-			int lenderId1 = Integer.parseInt(LenderId);
-	        lending.setLenderId(lenderId1);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession(true);
 
-	        
-	        lending.setStatus(request.getParameter("approval"));
-	        try 
-	        {
-	            libraryImpl.approveBorrower(lending);
-	        } 
-	        catch (ClassNotFoundException | SQLException e) 
-	        {
-	            e.printStackTrace();
-	        }
-	        try 
-	        {
-	            List<Lending> list=libraryImpl.retrieveDetail();
-	            request.setAttribute("list", list);
-	            request.getRequestDispatcher("adminrequestview.jsp").forward(request, response);
-//	            System.out.println(list);
-	        }
-	        catch (ClassNotFoundException | SQLException e)
-	        {
-	            e.printStackTrace();
-	        }
-	    
+		if (session != null) {
+			String LenderId = request.getParameter("LenderId");
+			String BookId = request.getParameter("BookId");
+			String borrowDate = request.getParameter("Date");
 
+			try {
+				int LenderId1 = Integer.parseInt(LenderId);
+				int BookId1 = Integer.parseInt(BookId);
+
+				Lending lending = new Lending();
+				lending.setLenderId(LenderId1);
+				lending.setBookId(BookId1);
+				lending.setBorrowerDate(borrowDate);
+
+				libraryImpl.saveRequestForm(lending);
+				System.out.println("Lending request saved successfully.");
+			} catch (NumberFormatException e) {
+				System.out.println("Error: Unable to parse LenderId or BookId as integers.");
+				e.printStackTrace();
+			} catch (ClassNotFoundException | SQLException e) {
+				System.out.println("Error: Unable to save lending request.");
+				e.printStackTrace();
+			}
+		} else {
+			response.sendRedirect("requestform.html");
+			return; // Stop further execution
+		}
+
+		response.sendRedirect("home.html");
 	}
-    
-	
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		{
+			Lending lending = new Lending();
+			String LenderId = request.getParameter("id");
+			System.out.println(LenderId);
+			int lenderId1 = Integer.parseInt(LenderId);
+			lending.setLenderId(lenderId1);
+
+			lending.setStatus(request.getParameter("approval"));
+			try {
+				libraryImpl.approveBorrower(lending);
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				List<Lending> list = libraryImpl.retrieveDetail();
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("adminrequestview.jsp").forward(request, response);
+//	            System.out.println(list);
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

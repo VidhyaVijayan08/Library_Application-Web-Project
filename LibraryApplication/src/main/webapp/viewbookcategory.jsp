@@ -11,14 +11,36 @@
 <title>Products</title>
 <style>
 .card {
+background-color: white;
 	border: 1px solid #ccc;
+	background-color: white;
 	border-radius: 5px;
 	padding: 10px;
 	margin: 10px;
 	width: 200px;
-	float: left;
+	display: inline-block;
 	cursor: pointer;
 	transition: transform 0.2s;
+}
+
+h2{
+	color: white;
+}
+
+.card-details{
+	text-align: center;
+}
+
+body{
+text-align: center;
+background-color: darkblue;
+}
+
+h2{
+	text-align: center;
+    font-size: 45px;
+    font-weight: 800;
+    color: white;
 }
 
 .card img {

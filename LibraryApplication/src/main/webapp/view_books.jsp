@@ -7,7 +7,12 @@
 <head> 
     <title>View Products</title>
     <style>
+    
+    body{
+    	background-color: darkblue;
+    }
     h2{
+    	color: white;
     	text-align:center;
     }
 form {
@@ -15,6 +20,7 @@ form {
 }
 
 .card {
+	background-color: white;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px;
