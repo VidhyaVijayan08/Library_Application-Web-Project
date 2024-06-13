@@ -297,7 +297,6 @@ public class LibraryImpl implements LibraryDAO{
              user.setPhoneNumber(phoneNumber);
              user.setLocation(location);
              list.add(user);
-    	
     	}
         System.out.println(rows+" retrieved");
 		return list;
@@ -429,7 +428,7 @@ public class LibraryImpl implements LibraryDAO{
         return bookList;
     }
         
-        public static List<User> getfindusers(String email) throws ClassNotFoundException, SQLException {
+        public static List<User> getFindUsers(String email) throws ClassNotFoundException, SQLException {
             List<User> userList = new ArrayList<>();
             Connection connection = null;
             PreparedStatement preparedStatement = null;
@@ -442,7 +441,70 @@ public class LibraryImpl implements LibraryDAO{
                 // SQL query to retrieve all books
                 String sql;
                 if (email == null || email.isEmpty()) {
-                    sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users";
+                    sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users where user_type='user'";
+                } else {
+                    sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users WHERE mail_id =?";
+                }
+                
+                // Create PreparedStatement
+                preparedStatement = connection.prepareStatement(sql);
+                
+                System.out.print("The statement"+preparedStatement);
+                
+                if (email != null && !email.isEmpty()) {
+                    preparedStatement.setString(1, email);
+                }
+
+                // Execute query
+                resultSet = preparedStatement.executeQuery();
+
+                // Process ResultSet
+                while (resultSet.next()) {
+                	System.out.print(resultSet);
+                    // Create User object and set its properties
+                    User user = new User();
+                    user.setId(resultSet.getInt("user_id"));
+                    user.setEmailId(resultSet.getString("mail_id"));
+                    user.setName(resultSet.getString("user_name"));
+                    user.setLocation(resultSet.getString("location"));
+                    user.setGetStatus(resultSet.getInt("status"));
+                    user.setPhoneNumber(resultSet.getLong("phone_number"));
+                    user.setType(resultSet.getString("user_type"));
+                  
+                    // Add User object to the list
+                    userList.add(user);
+                }
+            } finally {
+                // Close ResultSet, PreparedStatement, and Connection
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+
+        return userList;
+    }
+        
+        
+        public static List<User> getFindLibrarian(String email) throws ClassNotFoundException, SQLException {
+            List<User> userList = new ArrayList<>();
+            Connection connection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
+
+            try {
+                // Get connection
+                connection = ConnectUtil.getConnection();
+
+                // SQL query to retrieve all books
+                String sql;
+                if (email == null || email.isEmpty()) {
+                    sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users where user_type='librarian'";
                 } else {
                     sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users WHERE mail_id =?";
                 }

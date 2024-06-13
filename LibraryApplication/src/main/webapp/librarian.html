@@ -17,7 +17,7 @@
 		li{
 			display: inline-block;
 		    list-style: none;
-		    padding: 0px 15px;
+		    padding: 0px 11px;
 		    font-size: 22px;
 	    	font-weight: 800;	
 		}
@@ -47,6 +47,14 @@
 			height: 135px;
 		}
 		
+		button{
+			cursor: pointer;
+		    background: none;
+		    border: none;
+		    font-size: 19px;
+		    font-weight: 600;
+		}
+		
 	</style>
 </head>
 <body>
@@ -57,15 +65,17 @@
 		<h1 style="text-align:center; display:inline-block;   padding: 0 91px;">Library Application</h1>
 		<nav class="nav" style="display:inline-block;">
 			<ul class="nav-ul">
-		  			<li class="nav-ul-li"><a href="user.jsp" style="text-decoration:none; color:black">Users</a></li>
+		  		
+				<li class="nav-ul-li"><a href="user.jsp" style="text-decoration:none; color:black">Users</a></li>
 				<li class="nav-ul-li"><a href="productcategory.jsp" style="text-decoration:none; color:black">Books</a></li>	
 				<li class="nav-ul-li"><a href="adminrequestview.jsp" style="text-decoration:none;  color:black">Requested Books</a></li>						
+				<li class="nav-ul-li"><form action="LogoutServlet" method="post"><button>Logout</button></form></li>	
+			
 			</ul>
 		</nav>
 	</header>
 	<main>
 	</main>
-	
 	<footer>
 	</footer>
 </body>

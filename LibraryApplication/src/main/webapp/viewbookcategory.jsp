@@ -71,6 +71,7 @@ try {
 	<div class="card">
 		<img src="data:image/jpeg;base64,<%= base64Image %>" alt="Book Cover">
 		<div class="card-details">
+			<h4>Book ID : <%= book.getBookId() %></h4>
 			<h3><%= book.getBookTitle() %></h3>
 			<p>
 				Category:
