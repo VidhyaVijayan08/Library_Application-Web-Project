@@ -8,7 +8,7 @@
 	integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<style> 
+<style>
 body {
 	margin: 0px;
 }
@@ -84,12 +84,21 @@ li:hover .dropdown {
 	width: 49%;
 }
 
-.icon-list-title{
+.icon-list-title {
 	display: inline-block;
 	margin: 0px;
 }
-.icon-para{
-	margin:0px;
+
+.icon-para {
+	margin: 0px;
+}
+
+button {
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 19px;
+	font-weight: 600;
 }
 </style>
 <body>
@@ -99,28 +108,24 @@ li:hover .dropdown {
 				alt="Library Logo" class="logo-img"></a>
 		</div>
 		<h1
-			style="text-align: center; display: inline-block; padding: 0 91px;">Library
+			style="text-align: center; width: 40%; display: inline-block; padding: 0 91px;">Library
 			Application</h1>
 		<nav class="nav" style="display: inline-block;">
 			<ul class="nav-ul">
-				<ul class="nav-ul">
-					<li>Accounts
-						<ul class="dropdown">
-							<li><a href="user.html"
-								style="text-decoration: none; color: #000000">User</a></li>
-							<li><a href="admin.html"
-								style="text-decoration: none; color: #000000">Admin</a></li>
-							<li><a href="librarian.html"
-								style="text-decoration: none; color: #000000">Librarian</a></li>
-						</ul>
-					</li>
-				</ul>
+				<li class="nav-ul-li"><a href="productCategory.jsp"
+					style="text-decoration: none; color: black">Books</a></li>
 				<li class="nav-ul-li"><a href="about.html"
 					style="text-decoration: none; color: black">About Us</a></li>
-				<li class="nav-ul-li"><a href="contact.html"
-					style="text-decoration: none; color: black">Contact Us</a></li>
-				<li class="nav-ul-li"><a href="books.html"
-					style="text-decoration: none; color: black">Books</a></li>
+
+				<!-- 				<li class="nav-ul-li"><a href="company.html" style="text-decoration:none; color:black">Requested Books</a></li>	
+ -->
+				<!--  <li class="nav-ul-li"><a href="productcategory.jsp" style="text-decoration:none;  color:black">Books</a></li>
+				-->
+				<li class="nav-ul-li"><form action="LogoutServlet"
+						method="post">
+						<button>Logout</button>
+					</form></li>
+
 			</ul>
 		</nav>
 	</header>
@@ -172,7 +177,7 @@ li:hover .dropdown {
 				Retrieval.</p>
 			<img src="libraryss.png" alt="library" style="width: 50%">
 		</div>
-		<div class="para-about">
+		<!-- <div class="para-about">
 			<div class="hero-features-left col-md-offset-1 col-md-5"
 				data-animation="fadeIn">
 				<ul class="icon-list">
@@ -208,7 +213,7 @@ li:hover .dropdown {
 					</li>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 	</main>
 </body>
 </html>

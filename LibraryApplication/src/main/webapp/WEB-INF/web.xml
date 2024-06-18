@@ -3,18 +3,17 @@
   <display-name>LibraryApplication</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
-            <welcome-file>shopping.jsp</welcome-file>
-                <welcome-file>adminindex.html</welcome-file>
-                 <welcome-file>adminrequestview.jsp</welcome-file>
-                
-            <welcome-file>librarian.html</welcome-file>
-                <welcome-file>requestform.html</welcome-file>
-    
+   	<welcome-file>index.jsp</welcome-file>
+    <welcome-file>shopping.jsp</welcome-file>
+    <welcome-file>adminindex.html</welcome-file>
+    <welcome-file>adminrequestview.jsp</welcome-file>
+    <welcome-file>productCategory.jsp</welcome-file>
+    <welcome-file>librarian.html</welcome-file>
+    <welcome-file>requestform.html</welcome-file>
     <welcome-file>login.html</welcome-file>
-        <welcome-file>addbook.jsp</welcome-file>
-            <welcome-file>home.html</welcome-file>
-                <welcome-file>viewbookcategory.jsp</welcome-file>
+    <welcome-file>addbook.jsp</welcome-file>
+    <welcome-file>home.html</welcome-file>
+    <welcome-file>viewbookcategory.jsp</welcome-file>
     <welcome-file>register.html</welcome-file>
     <welcome-file>registeradmin.html</welcome-file>
     <welcome-file>loginadmin.html</welcome-file>

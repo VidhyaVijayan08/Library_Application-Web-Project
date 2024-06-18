@@ -65,7 +65,7 @@ h1{
 		vertical-align: middle;
 	}
 		
-	.logo-img{
+	.logo{
 		height: 135px;
 	}
 		
@@ -75,46 +75,42 @@ h1{
 
 	<header class="header-container" >
 		<div class="logo-container">
-			<a href="index.html" class="logo-atag"><img src="logo.jpg" alt="Library Logo Image"class="logo-img" ></a>
+			<a href="index.html" class="logo-atag"><img src="logo.jpg" alt="Library Logo"class="logo" ></a>
 			</div>
-			<h1 style="text-align:center; display:inline-block;   padding: 0 91px;">Library Application</h1>
-			<nav class="nav" style="display:inline-block;">
-				<ul class="nav-ul">
-					
-					<li class="nav-ul-li"><a href="product.html" style="text-decoration:none; color:black  ">Products</a></li>
-					<li class="nav-ul-li"><a href="company.html" style="text-decoration:none; color:black">Company</a></li>	
-				<ul  class="nav-ul">
-			  			<li>
-			   				 Accounts
-			    	<ul class="dropdown">
-			      	<li><a href="user.html" style="text-decoration:none; color:#000000">User</a></li>
-			      	<li><a href="admin.html" style="text-decoration:none; color:#000000">Admin</a></li>
-			      	<li><a href="librarian.html" style="text-decoration:none; color:#000000">Librarian</a></li>
-			    </ul>
-			  </li>
-			</ul>
-				</ul>
-			</nav>
+			<h1 style="text-align:center; display:inline-block; width: 60%; padding: 0 91px;">Library Application</h1>
 	</header>
 	<main>
-		<form action="SaveLibrary" method="post" style="margin: 0 auto; color:#ffffff; font-size:16px; padding: 51px 0px; font-weight:800; line-height:23px; width: 28%; border-color: #ffffff; border-width: 10px;">         
+		<form action="SaveLibrary" method="post" style="margin: 0px 700px; color:#ffffff; font-size:16px; padding: 51px 0px; font-weight:800; line-height:23px; width: 28%; border-color: #ffffff; border-width: 10px;">         
 		    <fieldset>
 		        <center>
 		            <legend>Registration Form</legend>
 		        </center>
-		        <label for="Name">Name:</label><br>
-		        <input type="text" name="Name" id="Name" placeholder="Enter Your Name" required><br>
-		        <label for="username">Email Id:</label><br>
-		        <input type="email" name="EmailId" id="Email" placeholder="Enter Your EmailId" required><br>
-		     	<label for="password">Password:</label><br>
-		        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>
-		        <label for="type">Type:</label><br>
-		        <input type="text" name="type" id="type" placeholder="Enter Your Type" required><br>
-		         <label for="phonenumber">Phone Number:</label><br>
-		        <input type="tel" name="phonenumber" id="phonenumber" placeholder="Enter Your Phone Number" required><br>
-		         <label for="location">Location:</label><br>
-		        <input type="text" name="location" id="location" placeholder="Enter Your Location" required><br>	        
-		        
+		       <label for="Name">Name:</label><br>
+				<input type="text" name="Name" id="Name" placeholder="Enter Your Name" pattern="[A-Za-z\s]+" title="Only alphabets and spaces are allowed" required><br>
+
+				<label for="username">Email Id:</label><br>
+				<input type="email" name="EmailId" id="Email" placeholder="Enter Your EmailId" required><br>
+
+				<label for="password">Password:</label><br>
+				<input type="password" name="password" id="password" pattern=".{6,}" title="Password must be at least 6 characters" placeholder="Enter Your Password" required><br>
+
+				<label for="type">Type:</label><br>
+				<input type="text" name="type" id="type" placeholder="Enter Your Type" required><br>
+
+				<label for="phonenumber">Phone Number:</label><br>
+				<input type="tel" name="phonenumber" id="phonenumber" pattern="[0-9]{10}" title="Phone number must be 10 digits" placeholder="Enter Your Phone Number" required><br>
+
+		       <!--  <label for="location">Location:</label><br>
+		        <input type="text" name="location" id="location" placeholder="Enter Your Location" required><br>	         -->
+		        <label for="location">Location:</label>
+                 <select id="location" name="location" class="form-control" required>
+                   <option value="">Location</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Madurai">Madurai</option>
+                                <option value="Kerala">kerala</option>
+                                 <option value="Karnataka">Karnataka</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                            </select>
 		        <center>
 		            <button style="margin:10px">Submit</button>
 		        </center> 

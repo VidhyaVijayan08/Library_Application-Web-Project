@@ -21,10 +21,10 @@
     	font-weight: 800;	
 	}
 	h1{
-	text-align: center;
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0px 95px;
+		text-align: center;
+	    display: inline-block;
+	    vertical-align: middle;
+	    padding: 0px 95px;
 	}
 	
 	.nav-ul{
@@ -34,20 +34,17 @@
 	}
 	
 	.dropdown {
-	  padding: 0px;
-	  display: none;
-	  position: absolute;
-	  min-width: 100px;
-	  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+		padding: 0px;
+		display: none;
+		position: absolute;
+		min-width: 100px;
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 	}
 
 	.dropdown li {
-	  padding: 12px 3px;
-	  text-decoration: none;
-	  display: block;
-	}
-	
-	.dropdown li:hover {
+		padding: 12px 3px;
+		text-decoration: none;
+		display: block;
 	}
 	
 	li:hover .dropdown {
@@ -62,68 +59,70 @@
 	.logo-img{
 		height: 135px;
 	}
+	
+	legend{
+		font-size: 22px;
+	    font-weight: 800;
+	}
+	
+	label{
+		font-size: 19px;
+	    line-height: 21px;
+	}
 		
 	header{
 		height: 135px;
 	}
+	
 	fieldset {
-    margin: 65px 0 10px 0;
-    background: white;
-    border: 1px solid white;
-    border-radius: 19px;
-}
-button{
-	margin: 10px;
-    background-color: darkgoldenrod;
-    border: 1px solid darkgoldenrod;
-    border-radius: 22px;
-    color: white;
-    padding: 9px 32px;
-}
+	    margin: 65px 0 10px 0;
+	    background: white;
+	    border: 1px solid white;
+	    border-radius: 19px;
+	}
+	
+	button{
+		margin: 10px;
+	    background-color: darkgoldenrod;
+	    border: 1px solid darkgoldenrod;
+	    border-radius: 22px;
+	    color: white;
+	    padding: 9px 32px;
+	}
 	
 </style>
 </head>
 <body>
 	<header class="header-container" >
 		<div class="logo-container">
-			<a href="index.html" class="logo-atag"><img src="logo.jpg" alt="Library Logo Image"class="logo-img" ></a>
+			<a href="index.html" class="logo-atag"><img src="logo.jpg" alt="Library Logo"class="logo-img" ></a>
 			</div>
-			<h1 style="text-align:center; display:inline-block;   padding: 0 91px;">Library Application</h1>
-			<!-- <nav class="nav" style="display:inline-block;">
-				<ul class="nav-ul">
-					<li class="nav-ul-li"><a href="products.html" style="text-decoration:none; color:black">Products</a></li>
-					<li class="nav-ul-li"><a href="company.html" style="text-decoration:none; color:black">Company</a></li>	
-					<ul  class="nav-ul">
-			  <li>
-			    Accounts
-			    <ul class="dropdown">
-			      <li><a href="user.html" style="text-decoration:none; color:#000000">User</a></li>
-			      <li><a href="admin.html" style="text-decoration:none; color:#000000">Admin</a></li>
-			      <li><a href="librarian.html" style="text-decoration:none; color:#000000">Librarian</a></li>
-			    </ul>
-			  </li>
-			</ul>
-				</ul>
-			</nav> -->
+			<h1 style="text-align:center; display:inline-block; width: 60%;  padding: 0px 91px;">Library Application</h1>
+		
 	</header>
 	<main>
 	<form action="SaveLibrary" method="get" style="margin: 0 auto; padding:90px 0px; color:#000000; font-size:16px;  font-weight:800; line-height:23px; width: 28%; border-color: #000000; border-width: 10px;">         
 	    <fieldset>
-	        <center>
-	            <legend>Login</legend>
+	        <center> 
+	            <legend style="text-align: center">Login</legend>
 	        </center>
 	        <label for="username">Email Id:</label><br>
-	        <input type="email" name="EmailId" id="Email" placeholder="Enter Your Username" required><br>
+	        <input type="email" name="EmailId" id="Email" placeholder="Enter Your Email ID" required><br>
 	     	<label for="password">Password:</label><br>
-	        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>
-			
+	        <input type="password" name="password" id="password" placeholder="Enter Your Password" required><br>			
 	        <center>
 	            <button style="margin:10px">Submit</button>
+	       		 <div class="footer-buttons" >Don't have an account? 
+	       		 	<a href="register.html" style="color:blue; text-decoration: none; ">Signup</a>
+	       		 </div>
+	            
 	        </center>     
 	    </fieldset> 
 	    </form>
 	</main>
+	
 	<footer>
-	</footer>
+	 &copy; 
+    </footer>
 </body>
 </html>

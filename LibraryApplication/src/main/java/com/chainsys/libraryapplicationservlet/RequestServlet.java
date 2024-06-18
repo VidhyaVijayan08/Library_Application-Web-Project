@@ -18,8 +18,8 @@ import com.chainsys.libraryapplicationmodel.Lending;
 @WebServlet("/RequestServlet")
 public class RequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Lending lending = new Lending();
-	LibraryImpl libraryImpl = new LibraryImpl();
+	static Lending lending = new Lending();
+	static LibraryImpl libraryImpl = new LibraryImpl();
 
 	public RequestServlet() {
 		super();
@@ -33,26 +33,25 @@ public class RequestServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 
 		if (session != null) {
-			String LenderId = request.getParameter("LenderId");
-			String BookId = request.getParameter("BookId");
+			String lenderId = request.getParameter("LenderId");
+			String bookId = request.getParameter("BookId");
 			String borrowDate = request.getParameter("Date");
 
 			try {
-				int LenderId1 = Integer.parseInt(LenderId);
-				int BookId1 = Integer.parseInt(BookId);
+				int lenderId1 = Integer.parseInt(lenderId);
+				int bookId1 = Integer.parseInt(bookId);
 
-				Lending lending = new Lending();
-				lending.setLenderId(LenderId1);
-				lending.setBookId(BookId1);
+				lending.setLenderId(lenderId1);
+				lending.setBookId(bookId1);
 				lending.setBorrowerDate(borrowDate);
 
 				libraryImpl.saveRequestForm(lending);
-				System.out.println("Lending request saved successfully.");
+				out.println("Lending request saved successfully.");
 			} catch (NumberFormatException e) {
-				System.out.println("Error: Unable to parse LenderId or BookId as integers.");
+				out.println("Error: Unable to parse LenderId or BookId as integers.");
 				e.printStackTrace();
 			} catch (ClassNotFoundException | SQLException e) {
-				System.out.println("Error: Unable to save lending request.");
+				out.println("Error: Unable to save lending request.");
 				e.printStackTrace();
 			}
 		} else {
@@ -67,12 +66,11 @@ public class RequestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		{
-			Lending lending = new Lending();
-			String LenderId = request.getParameter("id");
-			System.out.println(LenderId);
-			int lenderId1 = Integer.parseInt(LenderId);
+			PrintWriter out = response.getWriter();
+			String lenderId = request.getParameter("id");
+			out.println(lenderId);
+			int lenderId1 = Integer.parseInt(lenderId);
 			lending.setLenderId(lenderId1);
-
 			lending.setStatus(request.getParameter("approval"));
 			try {
 				libraryImpl.approveBorrower(lending);
@@ -80,10 +78,9 @@ public class RequestServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			try {
-				List<Lending> list = libraryImpl.retrieveDetail();
+				List<Lending> list = LibraryImpl.retrieveDetail();
 				request.setAttribute("list", list);
-				request.getRequestDispatcher("adminrequestview.jsp").forward(request, response);
-//	            System.out.println(list);
+				request.getRequestDispatcher("adminRequestView.jsp").forward(request, response);
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}

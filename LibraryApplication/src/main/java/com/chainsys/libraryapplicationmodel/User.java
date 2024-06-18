@@ -8,8 +8,7 @@ public class User {
 	String type;
 	Long phoneNumber;
 	String location;
-	public int getStatus;
-	
+	public int getStatus;	
 	 
 	public User(){
 		

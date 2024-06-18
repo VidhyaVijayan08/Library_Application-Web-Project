@@ -2,8 +2,6 @@ package com.chainsys.libraryapplicationmodel;
 
 import java.util.Arrays;
 
-import com.mysql.cj.jdbc.Blob;
-
 public class Book {
 	  
 	int bookId;
@@ -115,7 +113,6 @@ public class Book {
 		this.bookReviews = bookReviews;
 	}
 	
-	
 	public int getBookRating() {
 		return bookRating;
 	}
@@ -130,7 +127,4 @@ public class Book {
 				+ bookSummary + ", inStock=" + inStock + ", bookRating=" + bookRating + ", bookReviews=" + bookReviews
 				+ ", bookCover=" + Arrays.toString(bookCover) + ", availableBook=" + availableBook + "]";
 	}
-	
-	
-	
 }
