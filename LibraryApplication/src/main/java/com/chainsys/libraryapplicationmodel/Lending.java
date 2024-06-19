@@ -49,13 +49,9 @@ public class Lending {
 		return lendingId;
 	}
 
-
-
 	public void setLendingId(int lendingId) {
 		this.lendingId = lendingId;
 	}
-
-
 
 	public String getStatus() {
 		return status;
@@ -66,16 +62,12 @@ public class Lending {
 	public void setFine(int fine) {
 		this.fine = fine;
 	}
-
-
 	
 	public Lending() {
 		
 	}
 	
-	
-	public Lending(int lendingId, int bookId, int lenderId, int borrowerId, String borrowerDate, String dueDate,
-			String status, int fine) {
+	public Lending(int lendingId, int bookId, int lenderId, int borrowerId, String borrowerDate, String dueDate, String status, int fine) {
 		super();
 		this.lendingId = lendingId;
 		this.bookId = bookId;

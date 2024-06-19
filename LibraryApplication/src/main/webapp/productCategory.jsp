@@ -5,7 +5,7 @@
 <%@ page import="java.util.List"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>Products</title>
@@ -118,10 +118,7 @@ main{
 				<li class="nav-ul-li"><a href="about.html"
 					style="text-decoration: none; color: black">About Us</a></li>
 
-				<!-- 				<li class="nav-ul-li"><a href="company.html" style="text-decoration:none; color:black">Requested Books</a></li>	
- -->
-				<!--  <li class="nav-ul-li"><a href="productcategory.jsp" style="text-decoration:none;  color:black">Books</a></li>
-				-->
+
 				<li class="nav-ul-li"><form action="LogoutServlet"
 						method="post">
 						<button>Logout</button>

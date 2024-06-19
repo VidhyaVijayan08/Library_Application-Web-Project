@@ -20,7 +20,6 @@ public class LibraryImpl implements LibraryDAO{
 	        String add = "insert into users(user_name,mail_id, user_password, user_type, phone_number, location,status)values(?,?,?,?,?,?,?)";
 	        PreparedStatement ps = con.prepareStatement(add);
 	            user.setName(user.getName());
-	            System.out.println("Getting Student name" + user.getName());
 	            ps.setString(1, user.getName());
 	            ps.setString(2, user.getEmailId());
 	            ps.setString(3, user.getPassword());
@@ -28,56 +27,38 @@ public class LibraryImpl implements LibraryDAO{
 	            ps.setLong(5, user.getPhoneNumber());
 	            ps.setString(6, user.getLocation());
 	            ps.setInt(7, 1);
-	            System.out.println("Setting Student name : " + user.getName());
-	            int rows = ps.executeUpdate();
-	            System.out.println("In Add movie Servlet.." + rows);
 	}
 
 	public void saveRequest(Lending lending) throws ClassNotFoundException, SQLException {
 	    Connection con = ConnectUtil.getConnection();
 	    String add = "INSERT INTO lending_details (book_id, user_id, borrow_date, due_date, status, fine) VALUES (?, ?, ?, DATE_ADD(?, INTERVAL 30 DAY), ?, ?)";
 	    PreparedStatement ps = con.prepareStatement(add);
-
 	    ps.setInt(1, lending.getBookId());
 	    ps.setInt(2, lending.getLenderId()); 
-	    
 	    String borrowerDate = lending.getBorrowerDate();
 	    if (borrowerDate == null || borrowerDate.isEmpty()) {
 	        borrowerDate = getCurrentDate(); 
 	    }
 	    ps.setString(3, borrowerDate);
-
 	    ps.setString(4, borrowerDate);
-
 	    ps.setString(5, "Pending");
 	    ps.setInt(6, 0);
-
-	    int rows = ps.executeUpdate();
-	    System.out.println("Inserted " + rows + " row(s) into lending_details table.");
-
 	    ps.close();
 	    con.close();
 	}
-
 	 private String getCurrentDate() {
 	        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-	    }
-
+	 }
 	
 	public void saveRequestForm(Lending lending) throws ClassNotFoundException, SQLException {
 		 Connection con = ConnectUtil.getConnection();
 	        String add = "insert into lending_details(book_id,user_id, borrow_date,status,fine)values(?,?,?,?,?)";
 	        PreparedStatement ps = con.prepareStatement(add);
-	         
-	            System.out.println("Getting Student name" + lending.getBookId());
 	            ps.setInt(1, lending.getBookId());
 	            ps.setInt(2, lending.getLenderId());
 	            ps.setString(3, lending.getBorrowerDate());
 	            ps.setString(4, "Pending");
 	            ps.setInt(5, 0);
-	            System.out.println("Setting Lender ID : " + lending.getLenderId());
-	            int rows = ps.executeUpdate();
-	            System.out.println("In Add movie Servlet.." + rows);
 	}
 	
 	public void saveBook(Book book) throws ClassNotFoundException, SQLException {
@@ -85,7 +66,6 @@ public class LibraryImpl implements LibraryDAO{
 	        String add = "insert into book_details(book_id,book_title,author_id,book_category,publication_year,isbn,book_summary,book_rating,book_reviews,book_cover,in_stock,available_books)values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	        PreparedStatement ps = con.prepareStatement(add);
 	            book.setBookTitle(book.getBookTitle());
-	            System.out.println("Getting Book Title" + book.getBookTitle());
 	            ps.setInt(1, book.getBookId());
 	            ps.setString(2, book.getBookTitle());
 	            ps.setInt(3, book.getAuthorId());
@@ -98,29 +78,7 @@ public class LibraryImpl implements LibraryDAO{
 	            ps.setBytes(10, book.getBookCover());
 	            ps.setInt(11, book.getInStock());
 	            ps.setInt(12, book.getAvailableBook());
-	            System.out.println("Setting Book title : " + book.getBookTitle());
-	            int rows = ps.executeUpdate();
-	            System.out.println("In Add movie Servlet.." + rows);
 	}
-	
-
-//	public void saveLibrary(Book book) throws ClassNotFoundException, SQLException {
-//		 Connection con = ConnectUtil.getConnection();
-//	        String add = "insert into users(book_id,book_title,author_id,book_category, publication_year, isbn,book_summary,book_rating,book_reviews,in_stock,availableBooks)values(?,?,?,?,?,?,?)";
-//	        PreparedStatement ps = con.prepareStatement(add);
-//	            book.setBookTitle(book.getBookTitle());
-//	            System.out.println("Getting Book Title" + book.getBookTitle());
-//	            ps.setString(1, user.getName());
-//	            ps.setString(2, user.getEmailId());
-//	            ps.setString(3, user.getPassword());
-//	            ps.setString(4, user.getType());
-//	            ps.setLong(5, user.getPhoneNumber());
-//	            ps.setString(6, user.getLocation());
-//	            ps.setInt(7, 1);
-//	            System.out.println("Setting Student name : " + user.getName());
-//	            int rows = ps.executeUpdate();
-//	            System.out.println("In Add movie Servlet.." + rows);
-//	}
 	
 	public static String checkPassword(String emailId, String password) throws ClassNotFoundException, SQLException {
 		String userType=null;
@@ -129,14 +87,10 @@ public class LibraryImpl implements LibraryDAO{
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
 		prepareStatement.setString(1,emailId);
 		prepareStatement.setString(2,password);
-		System.err.print("The emailId "+ emailId);
-		System.err.print("The password "+password);
-		System.err.print("The prepared statement "+prepareStatement);
     	ResultSet resultSet = prepareStatement.executeQuery(); 
     	while (resultSet.next()) {
             userType= resultSet.getString(1);
     	}
-        System.out.println(resultSet+" retrieved");		
         return userType;
 	}
 	
@@ -145,10 +99,6 @@ public class LibraryImpl implements LibraryDAO{
 		String save="update users set status=0 where user_id=? and status=1";
         PreparedStatement prepareStatement = con.prepareStatement(save);
         prepareStatement.setInt(1, id);
-        int rows = prepareStatement.executeUpdate();
-        System.out.println("Deleted_id "+ id);
-        System.out.println("prepareStatement "+prepareStatement);
-    	System.out.println(rows + " deleted");
 	}
 	
 	public static List<User> retrieveDetails() throws ClassNotFoundException, SQLException 
@@ -166,7 +116,6 @@ public class LibraryImpl implements LibraryDAO{
             String type = resultSet.getString(4);
             Long phoneNumber = resultSet.getLong(5);
             String location = resultSet.getString(6);
-            
             User user=new User();
             user.setName(name);
             user.setEmailId(emailId);
@@ -196,10 +145,8 @@ public class LibraryImpl implements LibraryDAO{
             String borrowDate = resultSet.getString(5);
             String status = resultSet.getString(6);
             int fine = resultSet.getInt(7);
-
             Lending lending=new Lending();
             lending.setLendingId(lendingId);
-
             lending.setLenderId(lenderId);
             lending.setBookId(bookId);
             lending.setDueDate(dueDate);
@@ -215,7 +162,6 @@ public class LibraryImpl implements LibraryDAO{
 	public static List<User> searchServlet(User user) throws ClassNotFoundException, SQLException {
         ArrayList<User> list=new ArrayList<>();
 	  	Connection connection = ConnectUtil.getConnection();
-        System.out.println(connection);
         String save="SELECT  user_name,mail_id, user_password , user_type, phone_number, location FROM users where user_name=? and status =1";
         PreparedStatement prepareStatement = connection.prepareStatement(save);
         prepareStatement.setString(1, user.getName());
@@ -235,7 +181,6 @@ public class LibraryImpl implements LibraryDAO{
              user.setLocation(location);
              list.add(user);
     	}
-        System.out.println(rows+" retrieved");
 		return list;
 }
 	
@@ -243,7 +188,6 @@ public class LibraryImpl implements LibraryDAO{
 	public static List<Book> searchServlet(Book book) throws ClassNotFoundException, SQLException {
         List<Book> bookList = new ArrayList<>();
 	  	Connection connection = ConnectUtil.getConnection();
-        System.out.println(connection);
         String save="SELECT  book_id, book_title, author_id, book_category, publication_year, isbn, book_summary, book_rating, book_reviews, book_cover,available_books FROM book_details where book_title=?";
         PreparedStatement prepareStatement = connection.prepareStatement(save);
         prepareStatement.setString(1, book.getBookTitle());
@@ -262,11 +206,8 @@ public class LibraryImpl implements LibraryDAO{
               book.setBookCover(rows.getBytes("book_cover"));
               bookList.add(book);
     	}
-        System.out.println(rows+" retrieved");
 		return bookList;
-}
-	
-	
+}	
 	
     public void removeUser(User user) throws ClassNotFoundException, SQLException 
     {
@@ -278,6 +219,7 @@ public class LibraryImpl implements LibraryDAO{
         prepareStatement.executeUpdate();
         connection.close();
     }
+    
     @Override
     public void approveBorrower(Lending lending) throws ClassNotFoundException, SQLException 
     { 
@@ -289,6 +231,37 @@ public class LibraryImpl implements LibraryDAO{
         prepareStatement.executeUpdate();
         connection.close();
     }
+    
+    
+    public static List<Book> displayDetail(Book book) throws ClassNotFoundException, SQLException 
+    {
+        List<Book> bookList = new ArrayList<>();
+        Connection connection=ConnectUtil.getConnection();
+        
+        String select="select book_id, book_title, author_id, book_category, publication_year, isbn, book_summary, book_rating, book_reviews, book_cover,available_books FROM book_details where book_title=?";
+        PreparedStatement prepareStatement=connection.prepareStatement(select);
+        prepareStatement.setString(1, book.getBookTitle());
+        ResultSet resultSet=prepareStatement.executeQuery();
+        while(resultSet.next())
+        {
+        	
+            book.setBookId(resultSet.getInt("book_id"));
+            book.setBookTitle(resultSet.getString("book_title"));
+            book.setAuthorId(resultSet.getInt("author_id"));
+            book.setBookCategory(resultSet.getString("book_category"));
+            book.setPublicationYear(resultSet.getInt("publication_year"));
+            book.setIsbn(resultSet.getString("isbn"));
+            book.setBookSummary(resultSet.getString("book_summary"));
+            book.setBookRating(resultSet.getInt("book_rating"));
+            book.setBookReviews(resultSet.getString("book_reviews"));
+            book.setAvailableBook(resultSet.getInt("available_books"));
+            book.setBookCover(resultSet.getBytes("book_cover"));
+            bookList.add(book);
+
+        }
+        connection.close();
+        return bookList; 
+    }  
     
     public static List<User> retrieveDetail(User user) throws ClassNotFoundException, SQLException 
     {
@@ -318,7 +291,6 @@ public class LibraryImpl implements LibraryDAO{
             list.add(user);
         }
         connection.close();
-        System.out.println(list);
         return list;
         
     }  
@@ -336,7 +308,6 @@ public class LibraryImpl implements LibraryDAO{
         while(resultSet.next())
         {
         	
-			/* Book book = new Book(); */
             book.setBookId(resultSet.getInt("book_id"));
             book.setBookTitle(resultSet.getString("book_title"));
             book.setAuthorId(resultSet.getInt("author_id"));
@@ -352,7 +323,6 @@ public class LibraryImpl implements LibraryDAO{
 
         }
         connection.close();
-        System.out.println(bookList);
         return bookList; 
     }  
     
@@ -381,8 +351,6 @@ public class LibraryImpl implements LibraryDAO{
                 preparedStatement.setString(1, category.replace("@@", " "));
             }
             
-            System.out.print("The statement"+preparedStatement);
-
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -432,9 +400,7 @@ public class LibraryImpl implements LibraryDAO{
                 }
                 
                 preparedStatement = connection.prepareStatement(sql);
-                
-                System.out.print("The statement"+preparedStatement);
-                
+                                
                 if (email != null && !email.isEmpty()) {
                     preparedStatement.setString(1, email);
                 }
@@ -442,7 +408,6 @@ public class LibraryImpl implements LibraryDAO{
                 resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()) {
-                	System.out.print(resultSet);
                     User user = new User();
                     user.setId(resultSet.getInt("user_id"));
                     user.setEmailId(resultSet.getString("mail_id"));
@@ -465,7 +430,6 @@ public class LibraryImpl implements LibraryDAO{
                     connection.close();
                 }
             }
-
         return userList;
     }     
      
@@ -484,11 +448,8 @@ public class LibraryImpl implements LibraryDAO{
                 } else {
                     sql = "SELECT user_id,user_name,mail_id, user_password, user_type, phone_number, location, status FROM users WHERE mail_id =?";
                 }
-                
                 preparedStatement = connection.prepareStatement(sql);
-                
-                System.out.print("The statement"+preparedStatement);
-                
+                                
                 if (email != null && !email.isEmpty()) {
                     preparedStatement.setString(1, email);
                 }
@@ -496,7 +457,6 @@ public class LibraryImpl implements LibraryDAO{
                 resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()) {
-                	System.out.print(resultSet);
                     User user = new User();
                     user.setId(resultSet.getInt("user_id"));
                     user.setEmailId(resultSet.getString("mail_id"));
@@ -504,8 +464,7 @@ public class LibraryImpl implements LibraryDAO{
                     user.setLocation(resultSet.getString("location"));
                     user.setGetStatus(resultSet.getInt("status"));
                     user.setPhoneNumber(resultSet.getLong("phone_number"));
-                    user.setType(resultSet.getString("user_type"));
-                  
+                    user.setType(resultSet.getString("user_type"));   
                     userList.add(user);
                 }
             } finally {
@@ -519,7 +478,6 @@ public class LibraryImpl implements LibraryDAO{
                     connection.close();
                 }
             }
-
         return userList;
     }
     
@@ -528,18 +486,13 @@ public class LibraryImpl implements LibraryDAO{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
         try {
             connection = ConnectUtil.getConnection();
             String sql;
             sql = "SELECT distinct book_category FROM book_details";
-            
             preparedStatement = connection.prepareStatement(sql);
-            
             resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-
                  categoryList.add(resultSet.getString("book_category"));
             }
         } finally {

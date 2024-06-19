@@ -3,7 +3,7 @@
     <%@page import="com.chainsys.libraryapplicationmodel.User" %>
     <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head> 
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -48,16 +48,19 @@ table {
 <body>
 
 <table>
+
 <tr>
-    <td>Name</td>
-    <td>Email</td>
-    <td>Password</td>
-    <td>Type</td>
-    <td>PhoneNumber</td>
-    <td>Location</td>
-    <td colspan="2">Update</td>
+
+    <th>Name</th>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Type</th>
+    <th>PhoneNumber</th>
+    <th>Location</th>
+    <th colspan="2">Update</th>
     
 </tr>
+
 <% 
 ArrayList<User> user =(ArrayList<User>)request.getAttribute("list1");
 if (user != null && !user.isEmpty()) {

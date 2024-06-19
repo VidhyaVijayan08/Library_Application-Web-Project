@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*, java.io.*, java.util.Base64, com.chainsys.libraryapplicationdao.LibraryImpl, com.chainsys.libraryapplicationmodel.Book" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head> 
     <title>View Products</title>
     <style>
